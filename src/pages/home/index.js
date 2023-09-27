@@ -18,7 +18,7 @@ export const Home = () => {
             setUsername(user);
         });
 
-        socket.on('message', (message) => {
+        socket.on('server-message', (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
