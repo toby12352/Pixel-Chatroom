@@ -6,7 +6,7 @@ import {
 import "./index.css"
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io('http://35.91.65.162:3001');
 
 export const Home = () => {
     const [ messages, setMessages ] = useState([]);

@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# keys
+keys
+
 # production
 /build
 
