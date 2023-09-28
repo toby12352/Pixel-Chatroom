@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Helmet,
     HelmetProvider
@@ -6,12 +6,18 @@ import {
 import "./index.css"
 import io from 'socket.io-client';
 
-const socket = io('http://35.91.65.162:3001');
+// For AWS
+// const socket = io('http://35.91.65.162:3001');
+
+// For Local
+const socket = io('http://localhost:3001');
 
 export const Home = () => {
     const [ messages, setMessages ] = useState([]);
     const [ newMessage, setNewMessage ] = useState('');
     const [ username, setUsername ] = useState('');
+
+    const scrollBar = useRef();
 
     useEffect(() => {
         socket.on('set-username', (user) => {
@@ -30,35 +36,34 @@ export const Home = () => {
     const sendMessage = () => {
         socket.emit('client-message', newMessage);
         setNewMessage('');
+
+        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
     };
 
     return(
         <HelmetProvider>
             <Helmet>
                 <meta charset="utf-8" />
-                <title>Home Page!</title>
-
+                <title>ChatRoom Prototype!</title>
             </Helmet>
-            <h1>Home Page!</h1>
-            <div className="chatroom d-inline">
-                <div className="chatbox layout">
+            <h1>ChatRoom Prototype!</h1>
+            <div className="chatroom">
+                <div ref={scrollBar} className="chatbox layout">
                     {messages.map((msg, index) => (
-                        <div key={index}>
+                        <div key={index} className="messages">
                             <strong>{msg.username}</strong>: {msg.message}
                         </div>
                     ))}
                 </div>
-                <div className="user-input layout">
+                <div className="user-input">
                     <input 
                         className="message-box" 
                         type="text" 
                         value={newMessage}
+                        placeholder="Enter Message..."
                         onChange={(e) => setNewMessage(e.target.value)}
                     />
-                    <button 
-                        className="send-message"
-                        onClick={sendMessage}    
-                    >
+                    <button className="send-button" onClick={sendMessage}>
                         Send
                     </button>
                 </div>
