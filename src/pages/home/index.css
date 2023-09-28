@@ -72,3 +72,20 @@ h1{
     width: 15%;
     border-radius: 10px;
 }
+
+/* Additional Mobile Styles */
+@media screen and (max-width: 767px) {
+    .chatbox {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  
+    .messages {
+      padding: 5px; /* Adjust padding for smaller screens */
+      font-size: 16px; /* Adjust font size for smaller screens */
+    }
+  
+    .message-box,
+    .send-button {
+      font-size: 18px; /* Adjust font size for smaller screens */
+    }
+  }
