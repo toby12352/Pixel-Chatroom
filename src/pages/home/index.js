@@ -7,10 +7,10 @@ import "./index.css"
 import io from 'socket.io-client';
 
 // For AWS
-// const socket = io('http://35.91.65.162:3001');
+const socket = io('http://35.91.65.162:3001');
 
 // For Local
-const socket = io('http://localhost:3001');
+// const socket = io('http://localhost:3001');
 
 export const Home = () => {
     const [ messages, setMessages ] = useState([]);
@@ -62,6 +62,11 @@ export const Home = () => {
                         value={newMessage}
                         placeholder="Enter Message..."
                         onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                            if(e.key === 'Enter'){
+                                sendMessage();
+                            }
+                        }}
                     />
                     <button className="send-button" onClick={sendMessage}>
                         Send
