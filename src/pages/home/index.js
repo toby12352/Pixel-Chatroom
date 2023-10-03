@@ -20,6 +20,8 @@ export const Home = () => {
     const scrollBar = useRef();
 
     useEffect(() => {
+        scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
+        
         socket.on('set-username', (user) => {
             setUsername(user);
         });
@@ -27,6 +29,9 @@ export const Home = () => {
         socket.on('server-message', (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
         });
+
+        
+        // scrollBar.scrollTop = scrollBar.scrollHeight;
 
         return () => {
             socket.disconnect();
@@ -36,8 +41,9 @@ export const Home = () => {
     const sendMessage = () => {
         socket.emit('client-message', newMessage);
         setNewMessage('');
-
-        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
+        scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
+        
+        
     };
 
     return(
@@ -57,7 +63,7 @@ export const Home = () => {
                 </div>
                 <div className="user-input">
                     <input 
-                        className="message-box" 
+                        className="message-input-box" 
                         type="text" 
                         value={newMessage}
                         placeholder="Enter Message..."
