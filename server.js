@@ -4,10 +4,10 @@ const cors = require('cors');
 const io = require('socket.io')(server, {
     cors:{
         // For AWS
-        origin:"http://35.91.65.162:3000",
+        // origin:"http://35.91.65.162:3000",
 
         // For Local
-        // origin:"http://localhost:3000",
+        origin:"http://localhost:3000",
         methods:['GET', 'POST'],
     }
 });
@@ -34,6 +34,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log('Server is running on port 3001');
+server.listen(8080, () => {
+  console.log('Server is running on port 8080');
 });
