@@ -1,3 +1,7 @@
+# Demo available: http://54.68.147.125/
+
+As long as there is someone else in the chatroom, you can talk with them freely!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
