@@ -34,19 +34,28 @@ h1{
 .chatroom{
     width: 100%;
     height: calc(93.5vh - 20px);
+    display: flex;
+    flex-direction: column;
     /* max-height: 400px; */
 }
 
 .chatbox{
-    padding: 20px;
+    /* padding: 20px;
     width: calc(99% - 20px);
     height: 90%;
     overflow-y: auto;
+    font-size: 20px; */
+    padding: 20px;
+    width: 100%;
+    max-width: 1000px; /* Limit the width for larger screens */
+    margin: 0 auto; /* Center the chatbox horizontally */
+    flex-grow: 1; /* Allow chatbox to grow and take remaining vertical space */
+    overflow-x: auto;
     font-size: 20px;
 }
 
 .messages{
-    padding: 10px;
+    padding: 20px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
 

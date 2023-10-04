@@ -7,10 +7,10 @@ import "./index.css"
 import io from 'socket.io-client';
 
 // For AWS
-const socket = io('http://35.91.65.162:3001');
+// const socket = io('http://35.91.65.162:3001');
 
 // For Local
-// const socket = io('http://localhost:3001');
+const socket = io('http://localhost:3001');
 
 export const Home = () => {
     const [ messages, setMessages ] = useState([]);
@@ -34,10 +34,9 @@ export const Home = () => {
     }, []);
 
     const sendMessage = () => {
+        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
         socket.emit('client-message', newMessage);
         setNewMessage('');
-
-        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
     };
 
     return(
