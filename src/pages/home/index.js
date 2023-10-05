@@ -5,6 +5,7 @@ import {
 } from "react-helmet-async";
 import "./index.css"
 import io from 'socket.io-client';
+import axios from 'axios';
 
 // For AWS
 // const socket = io('http://35.91.65.162:3001');
@@ -21,7 +22,7 @@ export const Home = () => {
 
     useEffect(() => {
         scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
-        
+            
         socket.on('set-username', (user) => {
             setUsername(user);
         });
@@ -30,7 +31,16 @@ export const Home = () => {
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
-        
+        axios.get('http://localhost:8080/chat-history')
+            .then((response) => {
+                console.log('Chat-history:', response.data)
+                setMessages(response.data);
+                setUsername(response.data.username);
+            })
+            .catch((error) => {
+                console.error('Error retrieving chat history:', error);
+            });
+
         // scrollBar.scrollTop = scrollBar.scrollHeight;
 
         return () => {
@@ -38,12 +48,10 @@ export const Home = () => {
         }
     }, []);
 
-    const sendMessage = () => {
+    const sendMessage = () => { 
         socket.emit('client-message', newMessage);
         setNewMessage('');
         scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
-        
-        
     };
 
     return(
