@@ -52,6 +52,7 @@ export const Home = () => {
         socket.emit('client-message', newMessage);
         setNewMessage('');
         scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
+
     };
 
     return(
