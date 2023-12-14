@@ -5,10 +5,9 @@ import {
 } from "react-helmet-async";
 import "./index.css"
 import io from 'socket.io-client';
-import axios from 'axios';
 
 // For AWS
-// const socket = io('http://35.91.65.162:3001');
+// const socket = io('http://52.34.201.95:8080');
 
 // For Local
 const socket = io('http://localhost:8080');
@@ -21,8 +20,6 @@ export const Home = () => {
     const scrollBar = useRef();
 
     useEffect(() => {
-        scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
-            
         socket.on('set-username', (user) => {
             setUsername(user);
         });
@@ -31,28 +28,15 @@ export const Home = () => {
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
-        axios.get('http://localhost:8080/chat-history')
-            .then((response) => {
-                console.log('Chat-history:', response.data)
-                setMessages(response.data);
-                setUsername(response.data.username);
-            })
-            .catch((error) => {
-                console.error('Error retrieving chat history:', error);
-            });
-
-        // scrollBar.scrollTop = scrollBar.scrollHeight;
-
         return () => {
             socket.disconnect();
         }
     }, []);
 
-    const sendMessage = () => { 
+    const sendMessage = () => {
+        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
         socket.emit('client-message', newMessage);
         setNewMessage('');
-        scrollBar.current.scrollTop = scrollBar.current.scrollHeight - scrollBar.current.clientHeight; 
-
     };
 
     return(
@@ -71,9 +55,9 @@ export const Home = () => {
                     ))}
                 </div>
                 <div className="user-input">
-                    <input 
-                        className="message-input-box" 
-                        type="text" 
+                    <input
+                        className="message-box"
+                        type="text"
                         value={newMessage}
                         placeholder="Enter Message..."
                         onChange={(e) => setNewMessage(e.target.value)}
