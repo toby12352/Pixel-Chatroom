@@ -1,4 +1,4 @@
-# Demo available: http://54.68.147.125/ (Server down temporary)
+# Demo available: http://52.34.201.95/
 
 As long as there is someone else in the chatroom, you can talk with them freely!
 
