@@ -4,10 +4,10 @@ const cors = require('cors');
 const io = require('socket.io')(server, {
     cors:{
         // For AWS
-        // origin:"http://52.34.201.95",
+        origin:"http://52.34.201.95",
 
         // For Local
-        origin:"http://localhost:3000",
+        // origin:"http://localhost:3000",
 
         methods:['GET', 'POST'],
     }

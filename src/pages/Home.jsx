@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import io from 'socket.io-client';
 
 // For AWS
-// const socket = io('http://52.34.201.95:8080');
+const socket = io('http://52.34.201.95:8080');
 
 // For Local
-const socket = io('http://localhost:8080');
+// const socket = io('http://localhost:8080');
 
 const Home = () => {
     const [ messages, setMessages ] = useState([]);
