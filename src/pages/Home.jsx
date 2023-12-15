@@ -48,7 +48,7 @@ const Home = () => {
     };
 
     return (
-        <section className="w-full h-screen ring-1 bg-custom-image bg-cover">
+        <section className="w-full h-screen ring-1 max-sm:h-full bg-cover bg-custom-image">
     
             <h1 className="flex justify-center text-white text-4xl md:text-7xl font-bold p-3">Pixel Chat</h1>
     
@@ -56,7 +56,7 @@ const Home = () => {
     
                 <div className="w-full md:w-[20%] p-2 max-h-screen bg-pink-100/40 text-lg md:text-[1.5rem]">
                     <span className="font-semibold">Present Users:</span> {activeUsersCount}
-                    <ul className="">
+                    <ul className="overflow-y-auto max-sm:max-h-20 scrollbar-track scrollbar-thumb">
                         {activeUsers.map((user, index) => (
                             <li key={index}>{user}</li>
                         ))}
