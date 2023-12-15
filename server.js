@@ -14,13 +14,26 @@ const io = require('socket.io')(server, {
 });
 
 const connectedUsers = [];
+const activeUsers = new Set();
+let activeUsersCount = 0;
 
 io.on('connection', (socket) => {
   console.log('User connected');
 
-  const username = `User${Math.floor(Math.random() * 1000)}`;
+  activeUsersCount++;
 
+  // const username = `User${Math.floor(Math.random() * 1000)}`;
+  const adjectives = ['Pixelated', 'Retro', 'Bitmapped', 'Glitchy', '8Bit', 'Neon', 'Sparkly', 'Shiny', 'Digital', 'Virtual', 'Crafty', 'Blocky', 'Cubic', 'Dotty', 'Grid'];
+  const nouns = ['Sprite', 'Pixel', 'Avatar', 'Gamer', 'Controller', 'Joystick', 'Bitmap', 'Character', 'Console', 'Glitch', 'PixelHero', 'BitLord', 'Cube', 'Screen', 'PixelKnight'];
+
+  const username = `${adjectives[Math.floor(Math.random() * adjectives.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}`;
+
+  activeUsers.add(username);
+
+  io.emit('server-message', { username: 'System', message: `${username} has joined the chat.` });
   io.emit('set-username', username);
+  io.emit('activeUser-count', activeUsersCount);
+  io.emit('activeUser-list', Array.from(activeUsers));
 
   connectedUsers[username] = socket;
 
@@ -30,6 +43,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
+    activeUsersCount--;
+    activeUsers.delete(username);
+
+    io.emit('activeUser-list', Array.from(activeUsers));
+    io.emit('activeUser-count', activeUsersCount);
+    io.emit('server-message', { username: 'System', message: `${username} has left the chat.` });
+
     console.log('User disconnected');
     delete connectedUsers[username];
   });
