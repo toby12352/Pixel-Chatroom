@@ -1,4 +1,3 @@
-import Button from "../components/Button";
 import React, { useState, useEffect, useRef } from "react";
 import io from 'socket.io-client';
 
@@ -50,7 +49,7 @@ const Home = () => {
     return (
         <section className="w-full h-screen ring-1 max-sm:h-full bg-cover bg-custom-image">
     
-            <h1 className="flex justify-center text-white text-4xl md:text-7xl font-bold p-3">Pixel Chat</h1>
+            <h1 className="flex justify-center text-purple-600/95 text-4xl md:text-7xl font-bold p-3">Pixel Chat</h1>
     
             <div className="flex flex-col md:flex-row gap-3 h-auto md:h-[70rem] mt-5 p-2">
     
