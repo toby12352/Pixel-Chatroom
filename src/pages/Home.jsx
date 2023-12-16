@@ -6,13 +6,13 @@ const Home = ({messages, newMessage, setNewMessage, activeUsersCount, activeUser
     
     return (
         
-        <section className="w-full h-screen ring-1 max-sm:h-full bg-cover bg-custom-image">
+        <section className="w-full h-screen ring-1 max-sm:h-full bg-cover bg-custom-image md:overflow-hidden">
     
             <h1 className="flex justify-center text-purple-600/95 text-5xl md:text-7xl font-bold p-3">Pixel Chat</h1>
     
             <div className="flex flex-col md:flex-row gap-3 h-auto md:h-[70rem] mt-5 p-2">
     
-                <div className="w-full md:w-[20%] p-2 max-h-screen bg-pink-100/40 text-lg md:text-[1.5rem] rounded-md">
+                <div className="w-full md:w-[20%] md:h-[85.5vh] p-2 max-h-screen bg-pink-100/40 text-lg md:text-[1.5rem] rounded-md">
                     <span className="font-semibold">Present Users:</span> {activeUsersCount}
                     <ul className="overflow-y-auto max-sm:max-h-20 scrollbar-track scrollbar-thumb">
                         {activeUsers.map((user, index) => (
