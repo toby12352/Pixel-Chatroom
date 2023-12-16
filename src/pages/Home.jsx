@@ -1,59 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import io from 'socket.io-client';
+import React, { useRef } from "react";
 
-// For AWS
-const socket = io('http://52.34.201.95:8080');
-
-// For Local
-// const socket = io('http://localhost:8080');
-
-const Home = () => {
-    const [ messages, setMessages ] = useState([]);
-    const [ newMessage, setNewMessage ] = useState('');
-    const [ username, setUsername ] = useState('');
-    const [ activeUsersCount, setactiveUsersCount ] = useState(0);
-    const [ activeUsers, setActiveUsers ] = useState([]);
+const Home = ({messages, newMessage, setNewMessage, activeUsersCount, activeUsers, sendMessage}) => {
 
     const scrollBar = useRef();
-
-    useEffect(() => {
-        socket.on('set-username', (user) => {
-            setUsername(user);
-        });
-
-        socket.on('activeUser-list', (users) => {
-            setActiveUsers(users);
-        })
-
-        socket.on('activeUser-count', (count) => {
-            setactiveUsersCount(count);
-        })
-
-        socket.on('server-message', (message) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
-        });
-
-        return () => {
-            socket.off('set-username');
-            socket.off('activeUser-count');
-            socket.disconnect();
-        }
-    }, []);
-
-    const sendMessage = () => {
-        scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
-        socket.emit('client-message', newMessage);
-        setNewMessage('');
-    };
-
+    
     return (
+        
         <section className="w-full h-screen ring-1 max-sm:h-full bg-cover bg-custom-image">
     
-            <h1 className="flex justify-center text-purple-600/95 text-4xl md:text-7xl font-bold p-3">Pixel Chat</h1>
+            <h1 className="flex justify-center text-purple-600/95 text-5xl md:text-7xl font-bold p-3">Pixel Chat</h1>
     
             <div className="flex flex-col md:flex-row gap-3 h-auto md:h-[70rem] mt-5 p-2">
     
-                <div className="w-full md:w-[20%] p-2 max-h-screen bg-pink-100/40 text-lg md:text-[1.5rem]">
+                <div className="w-full md:w-[20%] p-2 max-h-screen bg-pink-100/40 text-lg md:text-[1.5rem] rounded-md">
                     <span className="font-semibold">Present Users:</span> {activeUsersCount}
                     <ul className="overflow-y-auto max-sm:max-h-20 scrollbar-track scrollbar-thumb">
                         {activeUsers.map((user, index) => (
@@ -88,6 +47,7 @@ const Home = () => {
                             onKeyDown={(e) => {
                                 if(e.key === 'Enter' && newMessage.trim()){
                                     sendMessage();
+                                    scrollBar.current.scrollTop = scrollBar.current.scrollHeight;
                                 }
                             }}
                         />
